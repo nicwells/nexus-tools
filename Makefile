@@ -8,21 +8,25 @@ dshell:
 
 install:
 	@echo "Installing project's dependencies... 🚀"
-	@npm i
+	@yarn
+
+start:
+	@echo "starting all the things in dev mode"
+	@./node_modules/lerna/cli.js run dev --stream
 
 build:
 	@echo "Building ALL projects... 👷"
-	@./node_modules/lerna/cli.js run build
+	@./node_modules/lerna/cli.js run build --stream
 
 test:
 	@echo "Running tests in ALL projects... 🧪"
-	@./node_modules/lerna/cli.js run test
+	@./node_modules/lerna/cli.js run test --stream
 
 lint:
 	@echo "Linting ALL projects... ✨"
-	@npm run lint
+	@./node_modules/lerna/cli.js run lint --stream
 
 clean:
 	@echo "Cleaning ALL projects... 🗑"
-	@./node_modules/lerna/cli.js run clean
+	@./node_modules/lerna/cli.js run clean --stream
 	@rm -fr node_modules/
