@@ -1,0 +1,38 @@
+{
+  "name": "nexus-ui",
+  "version": "0.0.0",
+  "description": "A set of UI Components for Nexus",
+  "keywords": [
+    "react",
+    "apollo",
+    "graphql"
+  ],
+  "author": "Julien Machon <julienmachon@gmail.com>",
+  "homepage": "https://github.com/julienmachon/nexus-grapqhl/tree/master/packages/nexus-ui#readme",
+  "license": "Apache-2.0",
+  "main": "lib/nexus-ui.js",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julienmachon/nexus-grapqhl.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "lint": "tslint --project tslint.json",
+    "dev": "webpack -d",
+    "build": "webpack -p",
+    "clean": "rm -fr dist/",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "bugs": {
+    "url": "https://github.com/julienmachon/nexus-grapqhl/issues"
+  }
+}
