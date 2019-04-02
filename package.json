@@ -47,13 +47,6 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "tslint --project tslint.json",
-    "dev": "nodemon --exec ts-node src/index.ts",
-    "build": "tsc",
-    "clean": "rm -fr lib"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/julienmachon/nexus-grapqhl.git"

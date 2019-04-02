@@ -55,6 +55,6 @@ storiesOf('Apollo Storybook Decorator', module)
       mocks,
     }),
   )
-  .add('Hello World Test', () => {
+  .add('Hello World Test booo', () => {
     return <HelloWorld />;
   });

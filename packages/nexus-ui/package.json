@@ -26,7 +26,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "lint": "tslint --project tslint.json",
-    "dev": "webpack -d",
+    "dev": "start-storybook -p 6006",
     "build": "webpack -p",
     "clean": "rm -fr dist/",
     "storybook": "start-storybook -p 6006",

@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer, gql, IResolvers } from 'apollo-server';
 import { Nexus, Project, Organization, Resource } from '@bbp/nexus-sdk';
 import GraphQLJSON from 'graphql-type-json';
 import { orgsResolvers } from './organization';
@@ -59,42 +59,78 @@ const typeDefs = gql`
     rev: Int
     deprecated: Boolean
     data: JSON
+    project: Project
+  }
+
+  type ACL {
+    id: String
+    type: String
+    path: String
+    acl: [IdentityPermissionPair]
+    createdAt: String
+    createdBy: String
+    rev: Int
   }
 
   type ApiMapping {
     prefix: String
     namespace: String
   }
+
+  type IdentityPermissionPair {
+    permissions: [String]
+    identity: Identity
+  }
+
+  enum Identity {
+    User
+    Group
+    Authenticated
+    Anonymous
+  }
 `;
 
-const resolvers = {
+const resolvers: IResolvers = {
   Query: {
     ...orgsResolvers.Query,
     ...projectsResolvers.Query,
     ...resourcesResolvers.Query,
   },
   Organization: {
-    // @ts-ignore
-    projects: async (parent, args): Promise<Project[]> => {
+    projects: async (parent, args, context): Promise<Project[]> => {
       const data = await Project.list(parent.label);
       return data.results;
     },
   },
   Project: {
-    // @ts-ignore
-    organization: async (parent, args): Promise<Organization> => {
+    organization: async (parent): Promise<Organization> => {
       return Organization.get(parent.orgLabel);
     },
-    // @ts-ignore
-    resources: async (parent, args): Promise<Resource[]> => {
+    resources: async (parent): Promise<Resource[]> => {
       const data = await Resource.list(parent.orgLabel, parent.label);
       return data.results;
+    },
+  },
+  Resource: {
+    project: async (parent): Promise<Project> => {
+      const data = await Project.get(parent.orgLabel, parent.projectLabel);
+      return data;
     },
   },
   JSON: GraphQLJSON,
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => {
+    const token = req.headers.authorization;
+    // create new nexus instance here
+    return {
+      token,
+    };
+  },
+});
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });

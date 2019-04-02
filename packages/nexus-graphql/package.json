@@ -1,0 +1,36 @@
+{
+  "name": "nexus-graphql",
+  "version": "0.0.0",
+  "description": "A GraphQL API for Nexus",
+  "keywords": [
+    "GraphQL",
+    "Nexus",
+    "knowledge",
+    "graph"
+  ],
+  "author": "Julien Machon <julienmachon@gmail.com>",
+  "homepage": "https://github.com/julienmachon/nexus-grapqhl/tree/master/nexus-graphql#readme",
+  "license": "Apache-2.0",
+  "main": "lib/nexus-graphql.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julienmachon/nexus-grapqhl.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --project tslint.json",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "clean": "rm -fr lib"
+  },
+  "bugs": {
+    "url": "https://github.com/julienmachon/nexus-grapqhl/issues"
+  }
+}
