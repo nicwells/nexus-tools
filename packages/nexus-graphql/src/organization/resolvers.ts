@@ -1,4 +1,4 @@
-import { Organization, PaginatedList } from '@bbp/nexus-sdk';
+import { Organization, PaginatedList, Project } from '@bbp/nexus-sdk';
 import { GraphQLObjectResolver } from '@apollographql/apollo-tools';
 
 const resolvers: {
@@ -25,6 +25,12 @@ const resolvers: {
         };
       }
       Promise.reject(undefined);
+    },
+  },
+  Organization: {
+    projects: async (parent, args, context): Promise<Project[]> => {
+      const data = await Project.list(parent.label);
+      return data.results;
     },
   },
 };

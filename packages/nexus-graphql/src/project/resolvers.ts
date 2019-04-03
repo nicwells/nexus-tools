@@ -1,4 +1,4 @@
-import { Project } from '@bbp/nexus-sdk';
+import { Project, Organization, Resource } from '@bbp/nexus-sdk';
 import { GraphQLObjectResolver } from '@apollographql/apollo-tools';
 
 const resolvers: {
@@ -25,6 +25,15 @@ const resolvers: {
         return Project.get(orgLabel, projectLabel);
       }
       Promise.reject(undefined);
+    },
+  },
+  Project: {
+    organization: async (parent): Promise<Organization> => {
+      return Organization.get(parent.orgLabel);
+    },
+    resources: async (parent): Promise<Resource[]> => {
+      const data = await Resource.list(parent.orgLabel, parent.label);
+      return data.results;
     },
   },
 };
