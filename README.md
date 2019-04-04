@@ -22,3 +22,9 @@ A web interface for Nexus
 - Test: `make test`
 - Lint: `make lint`
 - Clean: `make clean`
+
+This project is a mono-repo, setup using [Lerna](https://lernajs.io/). All packages can be found under `./packages/`.
+
+Some useful commands:
+
+- `lerna run --scope package-name dev --stream` will run the dev script defined in package-name project
