@@ -9,7 +9,7 @@
     "graph"
   ],
   "author": "Julien Machon <julienmachon@gmail.com>",
-  "homepage": "https://github.com/julienmachon/nexus-grapqhl/tree/master/nexus-graphql#readme",
+  "homepage": "https://github.com/julienmachon/nexus-tools/tree/master/nexus-graphql#readme",
   "license": "Apache-2.0",
   "main": "lib/nexus-graphql.js",
   "directories": {
@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/julienmachon/nexus-grapqhl.git"
+    "url": "git+https://github.com/julienmachon/nexus-tools.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,6 +31,9 @@
     "clean": "rm -fr lib"
   },
   "bugs": {
-    "url": "https://github.com/julienmachon/nexus-grapqhl/issues"
+    "url": "https://github.com/julienmachon/nexus-tools/issues?labels=nexus-graphql"
+  },
+  "dependencies": {
+    "deepmerge": "^3.2.0"
   }
 }

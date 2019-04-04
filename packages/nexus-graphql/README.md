@@ -1,11 +1,3 @@
 # `nexus-graphql`
 
-> A GraphQL API for Nexus
-
-## Usage
-
-```
-const nexusGraphql = require('nexus-graphql');
-
-// TODO: DEMONSTRATE API
-```
+`yarn dev` and go to [localhost:4000](http://localhost:4000)

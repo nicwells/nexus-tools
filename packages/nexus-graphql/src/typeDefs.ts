@@ -2,6 +2,8 @@ import { gql } from 'apollo-server';
 
 const typeDefs = gql`
   scalar JSON
+  directive @hasPermission(permission: String) on FIELD | FIELD_DEFINITION
+  directive @upper on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 
   type Query {
     organizations: [Organization]
@@ -14,7 +16,7 @@ const typeDefs = gql`
       projectLabel: String!
       schemaId: String!
       resourceId: String!
-    ): Resource
+    ): Resource @hasPermission(permission: "resources/read")
   }
 
   type Organization {

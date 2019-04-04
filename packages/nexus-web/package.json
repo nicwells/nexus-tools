@@ -1,23 +1,17 @@
 {
-  "name": "nexus-ui",
+  "name": "nexus-web",
   "version": "0.0.0",
-  "description": "A set of UI Components for Nexus",
-  "keywords": [
-    "react",
-    "apollo",
-    "graphql"
-  ],
+  "description": "A web interface for Nexus",
   "author": "Julien Machon <julienmachon@gmail.com>",
-  "homepage": "https://github.com/julienmachon/nexus-tools/tree/master/packages/nexus-ui#readme",
+  "homepage": "https://github.com/julienmachon/nexus-tools/tree/master/packages/nexus-web#readme",
   "license": "Apache-2.0",
-  "main": "lib/nexus-ui.js",
+  "main": "lib/nexus-web.js",
   "directories": {
-    "lib": "src",
+    "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "dist",
-    "src"
+    "lib"
   ],
   "repository": {
     "type": "git",
@@ -26,13 +20,13 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "lint": "tslint --project tslint.json",
-    "dev": "start-storybook -p 6006",
+    "dev": "webpack-dev-server -w --hot",
     "build": "webpack -p",
     "clean": "rm -fr dist/",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "bugs": {
-    "url": "https://github.com/julienmachon/nexus-tools/issues?labels=nexus-ui"
+    "url": "https://github.com/julienmachon/nexus-tools/issues?labels=nexus-web"
   }
 }
