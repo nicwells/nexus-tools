@@ -16,7 +16,7 @@ const typeDefs = gql`
       projectLabel: String!
       schemaId: String!
       resourceId: String!
-    ): Resource @hasPermission(permission: "resources/read")
+    ): Resource
   }
 
   type Organization {
@@ -52,16 +52,30 @@ const typeDefs = gql`
     deprecated: Boolean
     data: JSON
     project: Project
+    statistics: Statistics
   }
 
-  type ACL {
-    id: String
-    type: String
-    path: String
-    acl: [IdentityPermissionPair]
-    createdAt: String
-    createdBy: String
-    rev: Int
+  type Statistics {
+    # total number of events in the stream
+    totalEvents: Int
+    # number of events in the stream that have been considered by the view
+    processedEvents: Int
+    # number of events in the stream that remain to be considered by the view
+    remainingEvents: Int
+    # number of events in the stream that have been used to update an index
+    evaluatedEvents: Int
+    # number of events in the stream that have been discarded (were not evaluated due to filters)
+    discardedEvents: Int
+    # instant of the last known event in the stream
+    lastEventDateTime: String
+    # instant of the last processed event in the stream
+    lastProcessedEventDateTime: String
+    # instant of the last evaluated event in the stream (used to update an index)
+    lastEvaluatedEventDateTime: String
+    # instant of the last discarded event in the stream (was not evaluated due to filters)
+    lastDiscardedEventDateTime: String
+    # time interval between the last processed event instant and the last known event instant
+    delay: String
   }
 
   type ApiMapping {

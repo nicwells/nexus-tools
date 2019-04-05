@@ -34,6 +34,10 @@
     "url": "https://github.com/julienmachon/nexus-tools/issues?labels=nexus-graphql"
   },
   "dependencies": {
-    "deepmerge": "^3.2.0"
+    "deepmerge": "^3.2.0",
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.1.7"
   }
 }

@@ -1,5 +1,6 @@
 import { Resource, Project } from '@bbp/nexus-sdk';
 import { GraphQLObjectResolver } from '@apollographql/apollo-tools';
+import fetch from 'node-fetch';
 
 const resolvers: {
   [key: string]: {
@@ -39,6 +40,20 @@ const resolvers: {
   Resource: {
     project: async (parent): Promise<Project> => {
       const data = await Project.get(parent.orgLabel, parent.projectLabel);
+      return data;
+    },
+    statistics: async (parent, args, context): Promise<Object> => {
+      const result = await fetch(
+        `http://dev.nexus.ocp.bbp.epfl.ch/v1/views/${parent.orgLabel}/${
+          parent.projectLabel
+        }/${encodeURIComponent(parent.id)}/statistics`,
+        {
+          headers: {
+            Authorization: `Bearer ${context.token}`,
+          },
+        },
+      );
+      const data = await result.json();
       return data;
     },
   },

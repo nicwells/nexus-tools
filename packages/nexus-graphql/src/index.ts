@@ -8,10 +8,12 @@ import { orgsResolvers } from './organization';
 import { projectsResolvers } from './project';
 import { resourcesResolvers } from './resources';
 
-// Setup Nexus environment
-Nexus.setEnvironment('https://sandbox.bluebrainnexus.io/v1');
 // This is just a test, it needs to be set on request time
-Nexus.setToken('');
+const token = '';
+
+// Setup Nexus environment
+Nexus.setEnvironment('http://dev.nexus.ocp.bbp.epfl.ch/v1');
+Nexus.setToken(token);
 
 // Combine all resolvers
 const resolvers: IResolvers = deepmerge.all<IResolvers>([
@@ -26,8 +28,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   schemaDirectives,
-  context: ({ req }) => {
-    const token = req.headers.authorization;
+  context: () => {
     // create new nexus instance here
     return {
       token,

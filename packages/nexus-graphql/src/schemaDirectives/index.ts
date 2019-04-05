@@ -1,5 +1,5 @@
 import PermissionDirective from './PermissionDirective';
-import UpperCaseDirective from './UppercaseDirective';
+import UpperCaseDirective from './UpperCaseDirective';
 
 const schemaDirectives = {
   hasPermission: PermissionDirective,
