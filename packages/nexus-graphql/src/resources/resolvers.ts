@@ -8,14 +8,17 @@ const resolvers: {
   };
 } = {
   Query: {
-    resources: async (parent, args): Promise<Resource[]> => {
+    resources: async (parent, args, { nexus }): Promise<Resource[]> => {
       if (
         args.orgLabel &&
         args.projectLabel &&
         typeof args.orgLabel === 'string' &&
         typeof args.projectLabel === 'string'
       ) {
-        const data = await Resource.list(args.orgLabel, args.projectLabel);
+        const data = await nexus.Resource.list(
+          args.orgLabel,
+          args.projectLabel,
+        );
         return data.results;
       }
       return [];

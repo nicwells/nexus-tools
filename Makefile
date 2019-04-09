@@ -8,7 +8,7 @@ dshell:
 
 install:
 	@echo "Installing project's dependencies... 🚀"
-	@yarn
+	@npx lerna bootstrap
 
 start:
 	@echo "starting all the things in dev mode"

@@ -28,16 +28,20 @@
     "lint": "tslint --project tslint.json",
     "dev": "nodemon --exec ts-node src/index.ts",
     "build": "tsc",
-    "clean": "rm -fr lib"
+    "clean": "rm -fr lib && rm -fr node_modules/"
   },
   "bugs": {
     "url": "https://github.com/julienmachon/nexus-tools/issues?labels=nexus-graphql"
   },
   "dependencies": {
+    "@bbp/nexus-sdk": "^1.0.0-beta.20",
+    "apollo-server": "^2.4.8",
     "deepmerge": "^3.2.0",
+    "graphql-type-json": "^0.2.4",
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
+    "@types/graphql-type-json": "^0.1.3",
     "@types/node-fetch": "^2.1.7"
   }
 }

@@ -22,11 +22,15 @@
     "lint": "tslint --project tslint.json",
     "dev": "webpack-dev-server -w --hot",
     "build": "webpack -p",
-    "clean": "rm -fr dist/",
+    "clean": "rm -fr dist/ && rm -fr node_modules/",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "bugs": {
     "url": "https://github.com/julienmachon/nexus-tools/issues?labels=nexus-web"
+  },
+  "dependencies": {
+    "antd": "^3.16.2",
+    "react": "^16.8.6"
   }
 }

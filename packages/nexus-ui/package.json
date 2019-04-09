@@ -28,11 +28,14 @@
     "lint": "tslint --project tslint.json",
     "dev": "start-storybook -p 6006",
     "build": "webpack -p",
-    "clean": "rm -fr dist/",
+    "clean": "rm -fr dist/ && rm -fr node_modules",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "bugs": {
     "url": "https://github.com/julienmachon/nexus-tools/issues?labels=nexus-ui"
+  },
+  "dependencies": {
+    "react": "^16.8.6"
   }
 }
