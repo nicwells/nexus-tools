@@ -5,7 +5,7 @@ const rootConfig = require('../../webpack.config');
 module.exports = {
   ...rootConfig,
   entry: {
-    'nexus-web': __dirname + '/src/nexus-web.ts',
+    'nexus-web': __dirname + '/src/nexus-web.tsx',
   },
   output: {
     filename: '[name].js',

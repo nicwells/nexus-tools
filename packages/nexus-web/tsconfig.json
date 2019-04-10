@@ -1,5 +1,6 @@
 {
   "extends": "../../tsconfig.json",
+  "lib": ["dom"],
   "jsx": "react",
   "compilerOptions": {
     "outDir": "./dist"

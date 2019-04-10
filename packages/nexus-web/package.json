@@ -31,6 +31,12 @@
   },
   "dependencies": {
     "antd": "^3.16.2",
-    "react": "^16.8.6"
+    "apollo-boost": "^0.3.1",
+    "apollo-link-error": "^1.1.10",
+    "apollo-link-rest": "^0.7.2",
+    "apollo-link-state": "^0.4.2",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.4",
+    "react-dom": "^16.8.6"
   }
 }

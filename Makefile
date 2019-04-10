@@ -8,7 +8,7 @@ dshell:
 
 install:
 	@echo "Installing project's dependencies... 🚀"
-	@npx lerna bootstrap
+	@yarn && ./node_modules/lerna/cli.js bootstrap
 
 start:
 	@echo "starting all the things in dev mode"
