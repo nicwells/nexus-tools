@@ -25,6 +25,10 @@ A web interface for Nexus
 
 This project is a mono-repo, setup using [Lerna](https://lernajs.io/). All packages can be found under `./packages/`.
 
+Other commands:
+
+`yarn start:storybook` and go to [localhost:6006](http://localhost:6006) - storybook of all packages
+
 Some useful commands:
 
 - `lerna run --scope package-name dev --stream` will run the dev script defined in package-name project

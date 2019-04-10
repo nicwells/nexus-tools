@@ -20,7 +20,9 @@ const ProjectList: React.FunctionComponent<ProjectListProps> = ({
       `}
       variables={{ orgLabel }}
     >
-      {({ loading, error, data, fetchMore }) => {
+      {//
+      // @ts-ignore
+      ({ loading, error, data, fetchMore }) => {
         if (error) {
           return (
             <p>
@@ -45,6 +47,7 @@ const ProjectList: React.FunctionComponent<ProjectListProps> = ({
             <button
               onClick={() =>
                 fetchMore({
+                  // @ts-ignore
                   updateQuery: (prev, { fetchMoreResult }) => {
                     if (!fetchMoreResult) return prev;
                     return Object.assign({}, prev, {

@@ -24,7 +24,9 @@ function ResourceCard() {
         }
       `}
     >
-      {({ loading, data }) => {
+      {//
+      // @ts-ignore
+      ({ loading, data }) => {
         if (loading) {
           return <h1>Loading resource...</h1>;
         }

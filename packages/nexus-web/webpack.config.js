@@ -16,5 +16,11 @@ module.exports = {
     compress: true,
     port: 9000,
   },
-  plugins: [...rootConfig.plugins, new HtmlWebpackPlugin()],
+  plugins: [
+    ...rootConfig.plugins,
+    new HtmlWebpackPlugin({
+      title: 'Nexus Web',
+      template: 'index.html',
+    }),
+  ],
 };

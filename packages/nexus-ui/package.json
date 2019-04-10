@@ -10,7 +10,7 @@
   "author": "Julien Machon <julienmachon@gmail.com>",
   "homepage": "https://github.com/julienmachon/nexus-tools/tree/master/packages/nexus-ui#readme",
   "license": "Apache-2.0",
-  "main": "lib/nexus-ui.js",
+  "main": "src/nexus-ui.js",
   "directories": {
     "lib": "src",
     "test": "__tests__"
@@ -26,9 +26,9 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "lint": "tslint --project tslint.json",
-    "dev": "start-storybook -p 6006",
-    "build": "webpack -p",
-    "clean": "rm -fr dist/ && rm -fr node_modules",
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "clean": "rm -fr lib/ && rm -fr node_modules",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -37,9 +37,7 @@
   },
   "dependencies": {
     "apollo-boost": "^0.3.1",
-    "apollo-link-error": "^1.1.10",
-    "apollo-link-rest": "^0.7.2",
-    "apollo-link-state": "^0.4.2",
+    "graphql": "^14.2.1",
     "react": "^16.8.6",
     "react-apollo": "^2.5.4",
     "react-dom": "^16.8.6",

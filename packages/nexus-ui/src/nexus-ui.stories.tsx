@@ -35,6 +35,7 @@ function HelloWorld() {
         }
       `}
     >
+      // @ts-ignore
       {({ loading, data }) => {
         const hello = data && data.helloWorld;
 
