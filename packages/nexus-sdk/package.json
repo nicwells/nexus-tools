@@ -1,0 +1,34 @@
+{
+  "name": "nexus-sdk",
+  "version": "0.0.0",
+  "description": "REST API abstraction for Nexus",
+  "keywords": [
+    "rest",
+    "js",
+    "typescript",
+    "sdk",
+    "node"
+  ],
+  "author": "Julien Machon <julienmachon@gmail.com>",
+  "homepage": "https://github.com/julienmachon/nexus-grapqhl/tree/master/packages/nexus-sdk#readme",
+  "license": "Apache-2.0",
+  "main": "lib/nexus-sdk.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julienmachon/nexus-tools.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/julienmachon/nexus-tools/issues"
+  },
+  "devDependencies": {}
+}
