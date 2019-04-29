@@ -1,5 +1,6 @@
-import { Project, Organization, Resource } from '@bbp/nexus-sdk';
+import { Project, Organization, Resource, SparqlView } from '@bbp/nexus-sdk';
 import { GraphQLObjectResolver } from '@apollographql/apollo-tools';
+import { getSparqlView } from '@bbp/nexus-sdk/lib/View/utils';
 
 const resolvers: {
   [key: string]: {
@@ -34,6 +35,16 @@ const resolvers: {
     resources: async (parent): Promise<Resource[]> => {
       const data = await Resource.list(parent.orgLabel, parent.label);
       return data.results;
+    },
+    sparqlView: async (parent, args): Promise<SparqlView> => {
+      const view = await getSparqlView(parent.orgLabel, parent.label);
+      let data = null;
+      if (args.query && typeof args.query === 'string') {
+        data = view.query(args.query);
+      }
+      // @ts-ignore
+      view.data = data;
+      return view;
     },
   },
 };

@@ -15,6 +15,11 @@ const typeDefs = gql`
       schemaId: String!
       resourceId: String!
     ): Resource
+    sparqlView(
+      orgLabel: String!
+      projectLabel: String!
+      query: String
+    ): SparqlView
   }
 
   type Organization {
@@ -41,6 +46,7 @@ const typeDefs = gql`
     apiMappings: [ApiMapping]
     organization: Organization
     resources: [Resource]
+    sparqlView(query: String): SparqlView
   }
 
   type Resource {
@@ -91,6 +97,13 @@ const typeDefs = gql`
     Group
     Authenticated
     Anonymous
+  }
+
+  type SparqlView {
+    context: String
+    id: String
+    type: [String]
+    data: JSON
   }
 `;
 

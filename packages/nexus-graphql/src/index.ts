@@ -6,12 +6,14 @@ import typeDefs from './typeDefs';
 import { orgsResolvers } from './organization';
 import { projectsResolvers } from './project';
 import { resourcesResolvers } from './resources';
+import { sparqlViewResolvers } from './sparqlview';
 
 // Combine all resolvers
 const resolvers: IResolvers = deepmerge.all<IResolvers>([
   orgsResolvers,
   projectsResolvers,
   resourcesResolvers,
+  sparqlViewResolvers,
   { JSON: GraphQLJSON },
 ]);
 

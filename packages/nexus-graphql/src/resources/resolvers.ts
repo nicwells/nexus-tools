@@ -15,10 +15,8 @@ const resolvers: {
         typeof args.orgLabel === 'string' &&
         typeof args.projectLabel === 'string'
       ) {
-        const data = await nexus.Resource.list(
-          args.orgLabel,
-          args.projectLabel,
-        );
+        // const data = await nexus.Resource.list(
+        const data = await Resource.list(args.orgLabel, args.projectLabel);
         return data.results;
       }
       return [];
