@@ -10,7 +10,7 @@
   "author": "Julien Machon <julienmachon@gmail.com>",
   "homepage": "https://github.com/julienmachon/nexus-tools/tree/master/packages/nexus-ui#readme",
   "license": "Apache-2.0",
-  "main": "src/nexus-ui.js",
+  "main": "lib/nexus-ui.js",
   "directories": {
     "lib": "src",
     "test": "__tests__"
