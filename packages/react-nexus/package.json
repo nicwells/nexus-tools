@@ -1,0 +1,30 @@
+{
+  "name": "react-nexus",
+  "version": "0.0.0",
+  "description": "A set of React components for Nexus",
+  "keywords": [
+    "react",
+    "nexus"
+  ],
+  "author": "Julien Machon <julienmachon@gmail.com>",
+  "homepage": "https://github.com/julienmachon/nexus-grapqhl/tree/master/packages/react-nexus#readme",
+  "license": "Apache-2.0",
+  "main": "lib/react-nexus.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julienmachon/nexus-tools.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/julienmachon/nexus-tools/issues"
+  }
+}
