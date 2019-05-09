@@ -27,6 +27,16 @@ const resolvers: {
       Promise.reject(undefined);
     },
   },
+  Mutation: {
+    createOrganization: async (parent, args): Promise<Organization> => {
+      if (args.label && typeof args.label === 'string') {
+        return Organization.create(args.label, {
+          description: 'made in graphql',
+        });
+      }
+      Promise.reject(undefined);
+    },
+  },
   Organization: {
     projects: async (parent, args, context): Promise<Project[]> => {
       const data = await Project.list(parent.label);

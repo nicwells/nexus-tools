@@ -28,6 +28,22 @@ const resolvers: {
       Promise.reject(undefined);
     },
   },
+  Mutation: {
+    createProject: async (parent, args): Promise<Project> => {
+      const { orgLabel, projectLabel } = args;
+      if (
+        orgLabel &&
+        projectLabel &&
+        typeof orgLabel === 'string' &&
+        typeof projectLabel === 'string'
+      ) {
+        return Project.create(orgLabel, projectLabel, {
+          description: 'made in graphql',
+        });
+      }
+      Promise.reject(undefined);
+    },
+  },
   Project: {
     organization: async (parent): Promise<Organization> => {
       return Organization.get(parent.orgLabel);

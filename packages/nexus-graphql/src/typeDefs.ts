@@ -22,6 +22,15 @@ const typeDefs = gql`
     ): SparqlView
   }
 
+  type Mutation {
+    createOrganization(label: String!, description: String): Organization
+    createProject(
+      orgLabel: String!
+      projectLabel: String!
+      description: String
+    ): Project
+  }
+
   type Organization {
     context: String
     id: String
