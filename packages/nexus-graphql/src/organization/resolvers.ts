@@ -1,5 +1,12 @@
-import { Organization, PaginatedList, Project } from '@bbp/nexus-sdk';
+import {
+  Organization,
+  Project,
+  NexusClient,
+  ProjectResponseCommon,
+  OrgResponseCommon,
+} from '@bbp/nexus-sdk';
 import { GraphQLObjectResolver } from '@apollographql/apollo-tools';
+import { ApolloContext } from '..';
 
 const resolvers: {
   [key: string]: {
@@ -7,30 +14,34 @@ const resolvers: {
   };
 } = {
   Query: {
-    organizations: async (): Promise<Organization[]> => {
-      const data = await Organization.list();
-      return data.results;
+    organizations: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<OrgResponseCommon[]> => {
+      const data = await nexus.Organization.list();
+      return data._results;
     },
-    organization: async (parent, args): Promise<any> => {
+    organization: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<any> => {
       if (args.label && typeof args.label === 'string') {
-        const org = await Organization.get(args.label);
-        return {
-          id: org.id,
-          context: org.context,
-          deprecated: org.deprecated,
-          label: org.label,
-          rev: org.rev,
-          type: org.type,
-          uuid: org.uuid,
-        };
+        const org = await nexus.Organization.get(args.label);
+        return org;
       }
       Promise.reject(undefined);
     },
   },
   Mutation: {
-    createOrganization: async (parent, args): Promise<Organization> => {
+    createOrganization: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Organization> => {
       if (args.label && typeof args.label === 'string') {
-        return Organization.create(args.label, {
+        return nexus.Organization.create(args.label, {
           description: 'made in graphql',
         });
       }
@@ -38,9 +49,13 @@ const resolvers: {
     },
   },
   Organization: {
-    projects: async (parent, args, context): Promise<Project[]> => {
-      const data = await Project.list(parent.label);
-      return data.results;
+    projects: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<ProjectResponseCommon[]> => {
+      const data = await nexus.Project.list(parent._label);
+      return data._results;
     },
   },
 };

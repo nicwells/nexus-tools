@@ -1,12 +1,18 @@
 import { ApolloServer, IResolvers } from 'apollo-server';
-import { Nexus } from '@bbp/nexus-sdk';
+import { createNexusClient, NexusClient } from '@bbp/nexus-sdk';
 import GraphQLJSON from 'graphql-type-json';
 import deepmerge from 'deepmerge';
+import fetch from 'node-fetch';
+require('abort-controller/polyfill');
+
 import typeDefs from './typeDefs';
 import { orgsResolvers } from './organization';
 import { projectsResolvers } from './project';
 import { resourcesResolvers } from './resources';
 import { sparqlViewResolvers } from './sparqlview';
+
+const NEXUS_URL =
+  process.env.NEXUS_URL || 'http://staging.nexus.ocp.bbp.epfl.ch/v1';
 
 // Combine all resolvers
 const resolvers: IResolvers = deepmerge.all<IResolvers>([
@@ -17,19 +23,20 @@ const resolvers: IResolvers = deepmerge.all<IResolvers>([
   { JSON: GraphQLJSON },
 ]);
 
+export type ApolloContext = {
+  nexus: NexusClient;
+};
+
 // Setup Apollo server
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => {
-    const [type, token] = (req.headers.authorization &&
+    const [_, token] = (req.headers.authorization &&
       req.headers.authorization.split(' ')) || ['none', ''];
     return {
       token,
-      nexus: new Nexus({
-        environment: 'http://dev.nexus.ocp.bbp.epfl.ch/v1',
-        token,
-      }),
+      nexus: createNexusClient({ uri: NEXUS_URL, token, fetch }),
     };
   },
 });

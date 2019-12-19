@@ -1,6 +1,12 @@
-import { Project, Organization, Resource, SparqlView } from '@bbp/nexus-sdk';
+import {
+  Project,
+  Organization,
+  Resource,
+  ProjectResponseCommon,
+  SparqlViewQueryResponse,
+} from '@bbp/nexus-sdk';
 import { GraphQLObjectResolver } from '@apollographql/apollo-tools';
-import { getSparqlView } from '@bbp/nexus-sdk/lib/View/utils';
+import { ApolloContext } from '..';
 
 const resolvers: {
   [key: string]: {
@@ -8,14 +14,22 @@ const resolvers: {
   };
 } = {
   Query: {
-    projects: async (parent, args): Promise<Project[]> => {
+    projects: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<ProjectResponseCommon[]> => {
       if (args.orgLabel && typeof args.orgLabel === 'string') {
-        const data = await Project.list(args.orgLabel);
-        return data.results;
+        const data = await nexus.Project.list(args.orgLabel);
+        return data._results;
       }
       return [];
     },
-    project: async (parent, args): Promise<Project | undefined> => {
+    project: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Project | undefined> => {
       const { orgLabel, projectLabel } = args;
       if (
         orgLabel &&
@@ -23,13 +37,17 @@ const resolvers: {
         typeof orgLabel === 'string' &&
         typeof projectLabel === 'string'
       ) {
-        return Project.get(orgLabel, projectLabel);
+        return nexus.Project.get(orgLabel, projectLabel);
       }
       Promise.reject(undefined);
     },
   },
   Mutation: {
-    createProject: async (parent, args): Promise<Project> => {
+    createProject: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Project> => {
       const { orgLabel, projectLabel } = args;
       if (
         orgLabel &&
@@ -37,7 +55,7 @@ const resolvers: {
         typeof orgLabel === 'string' &&
         typeof projectLabel === 'string'
       ) {
-        return Project.create(orgLabel, projectLabel, {
+        return nexus.Project.create(orgLabel, projectLabel, {
           description: 'made in graphql',
         });
       }
@@ -45,22 +63,39 @@ const resolvers: {
     },
   },
   Project: {
-    organization: async (parent): Promise<Organization> => {
-      return Organization.get(parent.orgLabel);
+    organization: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Organization> => {
+      return nexus.Organization.get(parent._organizationLabel);
     },
-    resources: async (parent): Promise<Resource[]> => {
-      const data = await Resource.list(parent.orgLabel, parent.label);
-      return data.results;
+    resources: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Resource[]> => {
+      const data = await nexus.Resource.list(
+        parent._organizationLabel,
+        parent._label,
+      );
+      return data._results;
     },
-    sparqlView: async (parent, args): Promise<SparqlView> => {
-      const view = await getSparqlView(parent.orgLabel, parent.label);
+    sparqlView: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Object> => {
       let data = null;
       if (args.query && typeof args.query === 'string') {
-        data = view.query(args.query);
+        data = await nexus.View.sparqlQuery(
+          parent._organizationLabel,
+          parent._label,
+          'nxv:defaultSparqlIndex',
+          args.query,
+        );
       }
-      // @ts-ignore
-      view.data = data;
-      return view;
+      return { data };
     },
   },
 };

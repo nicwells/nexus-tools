@@ -1,6 +1,12 @@
-import { Resource, Project } from '@bbp/nexus-sdk';
+import {
+  Resource,
+  Project,
+  ExpandedResource,
+  Statistics,
+} from '@bbp/nexus-sdk';
 import { GraphQLObjectResolver } from '@apollographql/apollo-tools';
 import fetch from 'node-fetch';
+import { ApolloContext } from '..';
 
 const resolvers: {
   [key: string]: {
@@ -8,7 +14,11 @@ const resolvers: {
   };
 } = {
   Query: {
-    resources: async (parent, args, { nexus }): Promise<Resource[]> => {
+    resources: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Resource[]> => {
       if (
         args.orgLabel &&
         args.projectLabel &&
@@ -16,12 +26,19 @@ const resolvers: {
         typeof args.projectLabel === 'string'
       ) {
         // const data = await nexus.Resource.list(
-        const data = await Resource.list(args.orgLabel, args.projectLabel);
-        return data.results;
+        const resources = await nexus.Resource.list(
+          args.orgLabel,
+          args.projectLabel,
+        );
+        return resources._results;
       }
       return [];
     },
-    resource: async (parent, args): Promise<Resource | undefined> => {
+    resource: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Resource | ExpandedResource | undefined> => {
       const { orgLabel, projectLabel, schemaId, resourceId } = args;
       if (
         orgLabel &&
@@ -33,28 +50,43 @@ const resolvers: {
         typeof schemaId === 'string' &&
         typeof resourceId === 'string'
       ) {
-        return Resource.get(orgLabel, projectLabel, schemaId, resourceId);
+        const resource = await nexus.Resource.get(
+          orgLabel,
+          projectLabel,
+          resourceId,
+        );
+        const data = await nexus.Resource.getSource(
+          orgLabel,
+          projectLabel,
+          resourceId,
+        );
+        return { ...resource, _source: JSON.stringify(data) };
       }
       Promise.reject(undefined);
     },
   },
   Resource: {
-    project: async (parent): Promise<Project> => {
-      const data = await Project.get(parent.orgLabel, parent.projectLabel);
+    project: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Project> => {
+      const data = await nexus.Project.get(
+        parent.orgLabel,
+        parent.projectLabel,
+      );
       return data;
     },
-    statistics: async (parent, args, context): Promise<Object> => {
-      const result = await fetch(
-        `http://dev.nexus.ocp.bbp.epfl.ch/v1/views/${parent.orgLabel}/${
-          parent.projectLabel
-        }/${encodeURIComponent(parent.id)}/statistics`,
-        {
-          headers: {
-            Authorization: `Bearer ${context.token}`,
-          },
-        },
+    statistics: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Statistics> => {
+      const data = await nexus.View.statistics(
+        parent.orgLabel,
+        parent.projectLabel,
+        parent.id,
       );
-      const data = await result.json();
       return data;
     },
   },

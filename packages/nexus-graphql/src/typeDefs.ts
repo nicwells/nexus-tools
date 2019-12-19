@@ -34,36 +34,57 @@ const typeDefs = gql`
   type Organization {
     context: String
     id: String
-    deprecated: Boolean
-    rev: Int
-    uuid: String
-    label: String
+    type: String
+    description: String
+    _label: String
+    _uuid: String
+    _rev: Int
+    _deprecated: Boolean
+    _createdAt: String
+    _createdBy: String
+    _updatedAt: String
+    _updatedBy: String
     projects: [Project]
   }
 
   type Project {
-    orgLabel: String
     id: String
     context: String
     type: String
-    label: String
     base: String
-    version: Int
-    deprecated: Boolean
-    createdAt: String
-    updatedAt: String
+    vocab: String
     apiMappings: [ApiMapping]
+    description: String
+    _label: String
+    _organizationLabel: String
+    _organizationUuid: String
+    _rev: Int
+    _deprecated: Boolean
+    _createdAt: String
+    _createdBy: String
+    _updatedAt: String
+    _updatedBy: String
     organization: Organization
     resources: [Resource]
     sparqlView(query: String): SparqlView
   }
 
   type Resource {
+    context: String
     id: String
-    self: String
-    rev: Int
-    deprecated: Boolean
-    data: JSON
+    type: String
+    _incoming: String
+    _outgoing: String
+    _self: String
+    _constrainedBy: String
+    _project: String
+    _rev: Int
+    _deprecated: Boolean
+    _createdAt: String
+    _createdBy: String
+    _updatedAt: String
+    _updatedBy: String
+    _source: JSON
     project: Project
     statistics: Statistics
   }
@@ -109,9 +130,6 @@ const typeDefs = gql`
   }
 
   type SparqlView {
-    context: String
-    id: String
-    type: [String]
     data: JSON
   }
 `;

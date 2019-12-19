@@ -34,7 +34,8 @@
     "url": "https://github.com/julienmachon/nexus-tools/issues?labels=nexus-graphql"
   },
   "dependencies": {
-    "@bbp/nexus-sdk": "1.0.0-beta.20",
+    "@bbp/nexus-sdk": "^1.2.0",
+    "abort-controller": "^3.0.0",
     "apollo-server": "^2.4.8",
     "deepmerge": "^3.2.0",
     "graphql": "^14.2.1",

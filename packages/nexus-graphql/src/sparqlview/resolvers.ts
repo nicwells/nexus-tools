@@ -1,6 +1,6 @@
-import { SparqlView } from '@bbp/nexus-sdk';
-import { getSparqlView } from '@bbp/nexus-sdk/lib/View/utils';
+import { SparqlView, SparqlViewQueryResponse } from '@bbp/nexus-sdk';
 import { GraphQLObjectResolver } from '@apollographql/apollo-tools';
+import { ApolloContext } from '..';
 
 const resolvers: {
   [key: string]: {
@@ -8,24 +8,29 @@ const resolvers: {
   };
 } = {
   Query: {
-    sparqlView: async (parent, args, { nexus, token }): Promise<SparqlView> => {
+    sparqlView: async (
+      parent,
+      args,
+      { nexus }: ApolloContext,
+    ): Promise<Object> => {
       const { orgLabel, projectLabel, query } = args;
+      let data = null;
       if (
         orgLabel &&
         projectLabel &&
         typeof orgLabel === 'string' &&
         typeof projectLabel === 'string'
       ) {
-        const view: SparqlView = await getSparqlView(orgLabel, projectLabel);
-        let data = null;
         if (query && typeof query === 'string') {
-          data = view.query(query);
+          data = await nexus.View.sparqlQuery(
+            orgLabel,
+            projectLabel,
+            encodeURIComponent('nxv:defaultSparqlIndex'),
+            query,
+          );
         }
-        // @ts-ignore
-        view.data = data;
-        return view;
       }
-      return null;
+      return { data };
     },
   },
 };
