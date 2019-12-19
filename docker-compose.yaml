@@ -4,7 +4,7 @@ volumes:
   yarnrc:
 
 services:
-  nexus-graphql:
+  nexus-tools:
     image: node:11.7
     working_dir: /app
     tty: true

@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <script src="https://www.unpkg.com/socket.io-client@2.3.0/dist/socket.io.dev.js"></script>
+  </head>
+  <body>
+    <script>
+      const token = '';
+
+      // Orgs socket
+      const orgsSocket = io('/orgs', {
+        transportOptions: {
+          polling: {
+            extraHeaders: {
+              Authorization: `bearer ${token}`,
+            },
+          },
+        },
+      });
+      orgsSocket.on('Created', d => console.log('org created', d));
+      orgsSocket.on('Updated', d => console.log('org updated', d));
+      orgsSocket.on('Deprecated', d => console.log('org deprecated', d));
+      orgsSocket.on('error', e => {
+        console.error('Error connecting to orgs', e);
+      });
+
+      // Project socket
+      const projectsSocket = io('/projects', {
+        transportOptions: {
+          polling: {
+            extraHeaders: {
+              Authorization: `bearer ${token}`,
+            },
+          },
+        },
+      });
+      projectsSocket.on('Created', d => console.log('project created', d));
+      projectsSocket.on('Updated', d => console.log('project updated', d));
+      projectsSocket.on('Deprecated', d =>
+        console.log('project deprecated', d),
+      );
+      projectsSocket.on('error', e => {
+        console.error('Error connecting to projects', e);
+      });
+
+      // Resource Socket
+      const resourceSocket = io('/resources', {
+        query: { org: 'julien', project: 'great-project' },
+        transportOptions: {
+          polling: {
+            extraHeaders: {
+              Authorization: `bearer ${token}`,
+            },
+          },
+        },
+      });
+      resourceSocket.on('Created', d => console.log('resource created', d));
+      resourceSocket.on('Updated', d => console.log('resource updated', d));
+      resourceSocket.on('Deprecated', d =>
+        console.log('resource deprecated', d),
+      );
+      resourceSocket.on('error', e => {
+        console.error('Error connecting to resource', e);
+      });
+    </script>
+  </body>
+</html>

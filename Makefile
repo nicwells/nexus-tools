@@ -4,29 +4,29 @@ ME=`id -u`:`id -g`
 
 dshell:
 	@echo "Running a Docker shell... 🐚" 
-	@docker-compose run --rm --user ${ME} --entrypoint bash nexus-graphql
+	@docker-compose run --rm --user ${ME} --entrypoint bash nexus-tools
 
 install:
 	@echo "Installing project's dependencies... 🚀"
-	@yarn && ./node_modules/lerna/cli.js bootstrap
+	@yarn && yarn lerna bootstrap
 
 start:
 	@echo "starting all the things in dev mode"
-	@./node_modules/lerna/cli.js run dev --stream
+	@yarn lerna run dev --stream
 
 build:
 	@echo "Building ALL projects... 👷"
-	@./node_modules/lerna/cli.js run build --stream
+	@yarn lerna run build --stream
 
 test:
 	@echo "Running tests in ALL projects... 🧪"
-	@./node_modules/lerna/cli.js run test --stream
+	@yarn lerna run test --stream
 
 lint:
 	@echo "Linting ALL projects... ✨"
-	@./node_modules/lerna/cli.js run lint --stream
+	@yarn lerna run lint --stream
 
 clean:
 	@echo "Cleaning ALL projects... 🗑"
-	@./node_modules/lerna/cli.js run clean --stream
+	@yarn lerna run clean --stream
 	@rm -fr node_modules/

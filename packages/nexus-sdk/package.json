@@ -29,6 +29,5 @@
   },
   "bugs": {
     "url": "https://github.com/julienmachon/nexus-tools/issues"
-  },
-  "devDependencies": {}
+  }
 }
