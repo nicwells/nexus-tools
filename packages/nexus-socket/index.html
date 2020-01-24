@@ -5,9 +5,10 @@
   <body>
     <script>
       const token = '';
+      const socketServerUrl = 'http://socket.dev.nexus.ocp.bbp.epfl.ch';
 
       // Orgs socket
-      const orgsSocket = io('/orgs', {
+      const orgsSocket = io(socketServerUrl + '/orgs', {
         transportOptions: {
           polling: {
             extraHeaders: {
@@ -24,7 +25,7 @@
       });
 
       // Project socket
-      const projectsSocket = io('/projects', {
+      const projectsSocket = io(socketServerUrl + '/projects', {
         transportOptions: {
           polling: {
             extraHeaders: {
@@ -43,7 +44,7 @@
       });
 
       // Resource Socket
-      const resourceSocket = io('/resources', {
+      const resourceSocket = io(socketServerUrl + '/resources', {
         query: { org: 'julien', project: 'great-project' },
         transportOptions: {
           polling: {

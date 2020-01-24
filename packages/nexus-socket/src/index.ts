@@ -3,21 +3,32 @@ import EventSource from 'eventsource';
 import express from 'express';
 import { Server } from 'http';
 import fetch from 'node-fetch';
-import path from 'path';
 import socketIO from 'socket.io';
 import { v1 as uuidV1 } from 'uuid';
 require('abort-controller/polyfill');
 
-const PORT_NUMBER = 3000;
-const NEXUS_URL = 'https://dev.nexus.ocp.bbp.epfl.ch/v1';
+const PORT = process.env.PORT || 3000;
+const NEXUS_URL =
+  process.env.NEXUS_URL || 'https://dev.nexus.ocp.bbp.epfl.ch/v1';
+const BASE_URL = process.env.BASE_URL || '/';
 const app = express();
 const http = new Server(app);
-const io = socketIO(http);
+const io = socketIO(http, {
+  handlePreflightRequest: (req, res) => {
+    const headers = {
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Origin': req.headers.origin, //or the specific origin you want to give access to,
+      'Access-Control-Allow-Credentials': true,
+    };
+    res.writeHead(200, headers);
+    res.end();
+  },
+});
 
-app.set('port', PORT_NUMBER);
+app.set('port', PORT);
 
-app.get('/', (req: express.Request, res: express.Response) => {
-  res.sendFile(path.resolve('index.html'));
+app.get(BASE_URL, (req: express.Request, res: express.Response) => {
+  res.send('OK');
 });
 
 io.on('connection', (socket: socketIO.Socket) => {
@@ -165,6 +176,6 @@ resourceNSP.on('connection', (socket: socketIO.Socket) => {
   }
 });
 
-http.listen(3000, () => {
-  console.log(`listening on ${PORT_NUMBER}`);
+http.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
 });
