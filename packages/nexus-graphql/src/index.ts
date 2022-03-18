@@ -11,8 +11,13 @@ import { projectsResolvers } from './project';
 import { resourcesResolvers } from './resources';
 import { sparqlViewResolvers } from './sparqlview';
 
+if (process.env.IGNORE_SSL_ERRORS && process.env.IGNORE_SSL_ERRORS.toLowerCase() === 'true') {
+  console.log("Ignoring SSL errors...")
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+}
+
 const NEXUS_URL =
-  process.env.NEXUS_URL || 'http://staging.nexus.ocp.bbp.epfl.ch/v1';
+  process.env.NEXUS_URL || 'https://dev.nise.bbp.epfl.ch/nexus/v1';
 
 // Combine all resolvers
 const resolvers: IResolvers = deepmerge.all<IResolvers>([
